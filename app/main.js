@@ -1,9 +1,10 @@
-const { knex } = require("./config/database");
-const express = require("express");
-const { json } = require("body-parser");
-const morgan = require("morgan");
-const cors = require("cors");
-const app = express();
+import { knex } from "./config/database";
+import express from "express";
+import { json } from "body-parser";
+import morgan from "morgan";
+import cors from "cors";
+
+export const app = express();
 
 app.use(morgan("dev"));
 app.use(json());
@@ -11,15 +12,19 @@ app.use(cors());
 
 app.get("/status", req => req.res.send("ONLINE"));
 
-app.use("/customer", require("./routes/customer").router);
-app.use("/item", require("./routes/item").router);
-app.use("/order", require("./routes/order").router);
+import { router as customer } from "./routes/customer";
+import { router as item } from "./routes/item";
+import { router as order } from "./routes/order";
 
-exports.app = app;
+app.use("/customer", customer);
+app.use("/item", item);
+app.use("/order", order);
 
 // istanbul ignore next
-exports.start = _ => {
+export const start = _ => {
+  // istanbul ignore next
   console.log("updating migrations...");
+  // istanbul ignore next
   knex.migrate.latest().then(_ => {
     console.log("done!");
     app.listen(3000, _ => {

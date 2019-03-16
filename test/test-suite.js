@@ -1,11 +1,11 @@
 // test/test-suite.js
-const chai = require("chai");
-const chaiHttp = require("chai-http");
+import chai from "chai";
+import chaiHttp from "chai-http";
 chai.use(chaiHttp);
 chai.should();
 
-const { app } = require("../app/main");
-const { knex } = require("../app/config/database");
+import { app } from "../app/main";
+import { knex } from "../app/config/database";
 
 describe("sample test suite", _ => {
   const req = chai.request(app).keepOpen();
@@ -14,7 +14,7 @@ describe("sample test suite", _ => {
     console.log("preparing test db...");
     knex.migrate.latest().then(_ => {
       console.log("done!");
-      done()
+      done();
     });
   });
 
@@ -24,7 +24,7 @@ describe("sample test suite", _ => {
     console.log("cleaning up testing db...");
     knex.migrate.rollback().then(_ => {
       console.log("done!");
-      done()
+      done();
     });
   });
 

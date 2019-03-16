@@ -1,2 +1,4 @@
 // index.js
-require("./app/main.js").start();
+require = require("esm")(module)
+module.exports = require("./app/main.js")
+module.exports.start()

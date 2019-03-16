@@ -1,8 +1,7 @@
-const { Router } = require("express");
-const { knex } = require("../config/database");
+import { Router } from "express";
+import { knex } from "../config/database";
 
-const router = new Router();
-exports.router = router;
+export const router = new Router();
 
 router.get("/list", (req, res) => {
   knex("item")
