@@ -17,6 +17,7 @@ app.use("/order", require("./routes/order").router);
 
 exports.app = app;
 
+// istanbul ignore next
 exports.start = _ => {
   console.log("updating migrations...");
   knex.migrate.latest().then(_ => {
